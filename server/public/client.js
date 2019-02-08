@@ -20,7 +20,26 @@ function onReady() {
 
 
     })
+    $('#addGame').on('click', addGame)
+    $.ajax({
+        url: '/newGame',
+        method: 'GET'
+    }).then(function (gameOne) {
+        for (let i = 0; i < gameOne.length; i++) {
+            $('#tbody').append(`
+              <tr>
+                  <td>${gameOne[i].playerName}</td>
+                  <td>${gameOne[i].playerScore}</td>
+                  <td>${gameOne[i].opponentName}</td>
+                  <td>${gameOne[i].opponentScore}</td>
+                  <td>${gameOne[i].winner}</td>
+                </tr>
+          `)
+
+        }
+    })
 }
+
 function handleClick() {
 
     let newPlayer = $('#newPlayerIn').val();
@@ -46,6 +65,7 @@ function handleClick() {
             }
 
 
-        
+
         })
-})}
+    })
+}
